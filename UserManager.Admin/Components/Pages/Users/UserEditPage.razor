@@ -1,0 +1,33 @@
+﻿@attribute [Route(Internals.PageUrls.UserAddUrl)]
+@attribute [Route(Internals.PageUrls.UserEditUrl)]
+@using UserManager.Main.Contracts.Models.Users
+
+<EditForm Model=@Model class="form-input">
+    <DataAnnotationsValidator/>
+
+    <HxInputText ValidationMessageMode="ValidationMessageMode.Floating" @bind-Value="Model.FirstName" Label="First Name" LabelCssClass="label-required" />
+    <HxInputText ValidationMessageMode="ValidationMessageMode.Floating" @bind-Value="Model.LastName" Label="Last Name" />
+    <HxInputText ValidationMessageMode="ValidationMessageMode.Floating" @bind-Value="Model.Email" Label="Email" />
+
+    @if(Id == null)
+    {
+        <HxInputDate ValidationMessageMode="ValidationMessageMode.Floating" @bind-Value="Model.Created" Label="Created" Enabled="false"/>
+        <HxInputDate ValidationMessageMode="ValidationMessageMode.Floating" @bind-Value="Model.Updated" Label="Updated" Enabled="false" />
+        <HxInputDate ValidationMessageMode="ValidationMessageMode.Floating" @bind-Value="Model.Deleted" Label="Deleted" Enabled="false" />
+
+        <HxButton Text="Reset password" Color="ThemeColor.Secondary" OnClick="TogglePasswordShow"/>
+    }
+    else
+    {
+        <HxInputText ValidationMessageMode="ValidationMessageMode.Floating" @bind-Value="Model.Password" Label="Password" Enabled="false" />
+    }
+
+    @if(ShowPasswordInput)
+    {
+        <HxInputText ValidationMessageMode="ValidationMessageMode.Floating" @bind-Value="Model.Password" Label="Password" Enabled="false" />
+        <HxButton Text="Reset" Color="ThemeColor.Secondary" OnClick="ResetPassword" />
+    }
+
+</EditForm>
+
+<HxButton Text="Add"  OnClick="Submit" Color="ThemeColor.Primary" />

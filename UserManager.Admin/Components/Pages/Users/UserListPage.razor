@@ -1,0 +1,38 @@
+﻿@attribute [Route(Internals.PageUrls.UserListUrl)]
+@inherits ComponentBase
+@using UserManager.Main.Contracts.Models.Users
+
+<h3>User Grid</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Created</th>
+            <th>Updated</th>
+            <th>Deleted</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Users != null)
+        {            
+            @foreach (var user in Users)
+            {
+                <tr @onclick="() => OnItemSelected(user)">
+                    <td>@user.Id</td>
+                    <td>@user.FirstName</td>
+                    <td>@user.LastName</td>
+                    <td>@user.Email</td>
+                    <td>@user.Created.ToString("MM/dd/yyyy")</td>
+                    <td>@(user.Updated.HasValue ? user.Updated.Value.ToString("MM/dd/yyyy") : "N/A")</td>
+                    <td>@(user.Deleted.HasValue ? user.Deleted.Value.ToString("MM/dd/yyyy") : "N/A")</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<input type="button" value="Add" @onclick="OnAddClick"/>

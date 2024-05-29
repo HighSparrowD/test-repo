@@ -42,12 +42,8 @@ namespace UserManager.Services.Background
             var userRepo = scope.ServiceProvider.GetRequiredService<IUserRepository>();
 
             var now = timestamp.GetUtcNow();
-            var isMoreToTake = true;
 
-            while (isMoreToTake)
-            {
-                // TODO
-            }
+            await userRepo.RemoveOldUsersFromDbAsync();
         }
     }
 }

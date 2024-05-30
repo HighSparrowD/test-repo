@@ -52,7 +52,7 @@ namespace UserManager.Controllers
         }
 
         [HttpDelete("{userId}")]
-        public async Task<ActionResult<User>> DeleteUsers(int userId, CancellationToken cancellation = default)
+        public async Task<ActionResult<User>> DeleteUser(int userId, CancellationToken cancellation = default)
         {
             var users = await _userService.DeleteUser(userId, cancellation);
             return Ok(users);

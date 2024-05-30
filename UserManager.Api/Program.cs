@@ -37,6 +37,13 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
+// Update Database
+using (var serviceScope = app.Services!.GetService<IServiceScopeFactory>()!.CreateScope())
+{
+	var context = serviceScope.ServiceProvider.GetRequiredService<UserDbContext>();
+	context.Database.Migrate();
+}
+
 app.MapControllers();
 
 app.Run();
